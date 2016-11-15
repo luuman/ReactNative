@@ -1,81 +1,121 @@
 import React, { Component } from 'react';
-
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  ListView,
-  Image,
-  TouchableHighlight,
-  View
+  View,
+  TextInput
 } from 'react-native';
-
 class luumans extends Component {
-  constructor(props) {
-  super(props);
-  const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-  this.state = {
-    dataSource: ds.cloneWithRows(this._genRows(-1))
-  };
-  }
-  _genRows(flag){
-    const dataBlob = [];
-    for(let i = 0 ; i< 88 ; i ++ ){
-      if(i == flag){
-      dataBlob.push("非著名程序员+我被打了"+i);
-      }else{
-       dataBlob.push("非著名程序员"+i);
-      }
-    }
-    return dataBlob;
-  }
   render() {
   return (
-    <ListView
-      dataSource={this.state.dataSource}
-      renderRow={this._renderRow.bind(this)}
-    />
-  );
-  }
-  _renderRow (rowData,sectionID, rowID) {
-  return (
-    <TouchableHighlight onPress={() => {
-      this._pressRow(rowData,rowID);
-    }}
-    underlayColor='red'
-    >
-      <View>
-      <View style={styles.row}>
-        <Image style={{width:40,height:40}} source={require('./app/img/head.jpg')}/>
-        <Text style={{flex:1,fontSize:20,marginLeft:20}}>
-        {rowData}
+    <View style={styles.container}>
+    <View style={styles.top_half_view}>
+      <View style={styles.title_view}>
+       <Text style={styles.title_text}>
+         邮箱登录
+      </Text>
+      </View>
+     
+      <TextInput 
+        style={styles.textinput}
+        placeholder='邮箱'
+        numberOfLines={1}
+        autoFocus={true}
+        underlineColorAndroid={'#e1e1e1'}
+      />
+       <TextInput 
+        style={styles.textinput}
+        placeholder='密码'
+        numberOfLines={1}
+        secureTextEntry={true}
+        underlineColorAndroid={'#e1e1e1'}
+      />
+      <View style={{backgroundColor:'#ffffff',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+       <View style={styles.style_view_register}>
+        <Text style={{color:'#5ac4ef'}}>
+        注册
         </Text>
+       </View>
+       
+       <View style={styles.style_view_login}>
+        <Text style={{color:'white'}}>
+        登录
+        </Text>
+       </View>
       </View>
-      </View>
-    </TouchableHighlight>
+      <Text style={styles.bottom_text}>
+      忘了密码?点此找回
+      </Text>
+    </View>
+    <View style={styles.bottom_half_view}>
+    </View>
+    </View>
   );
-   }
-  _pressRow(rowData,rowID){
-    alert(rowData);
-    this.setState({dataSource: this.state.dataSource.cloneWithRows(
-    this._genRows(rowID)
-  )});
   }
 }
-
 const styles = StyleSheet.create({
   container: {
   flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: '#F5FCFF',
+  backgroundColor: 'white',
   },
-  row: {
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems:'center',
-  padding: 10,
+  title_view:{
+  flexDirection:'row',
+  height:50,
+  alignItems: 'center',
+  backgroundColor:'#27b5ee',
+  },
+  title_text:{
+  color:'white',
+  fontSize:22,
+  marginLeft:20,
+  textAlign:'center'
+  },
+  top_half_view:{
+  flex: 1.3,
+  backgroundColor: 'white',
+  },
+  bottom_half_view:{
+  flex: 1,
+  backgroundColor: '#eeeeee',
+  },
+  textinput: {
+  backgroundColor:'#fff',
+  marginTop:5,
+  marginLeft:20,
+  marginRight:20,
+  textAlign:'left',
+  },
+  style_view_login:{  
+    flex:1,
+    marginTop:20,
+    marginLeft:20,
+    marginRight:20,
+    backgroundColor:'#27b5ee',
+    height:35,
+    borderRadius:5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  style_view_register:{  
+    flex:1,
+    marginTop:20,
+    marginLeft:20,
+    marginRight:20,
+    borderColor:'#5ac4ef',
+    borderWidth: 1,
+    height:35,
+    borderRadius:5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottom_text:{
+  color:'#27b5ee',
+  fontSize:14,
+  marginTop:10,
+  marginLeft:20,
+  textAlign:'left',
+  fontWeight:'bold'
   },
 });
-
 AppRegistry.registerComponent('luumans', () => luumans);
